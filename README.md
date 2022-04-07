@@ -23,8 +23,7 @@ Monkey        | Upgrade
 Submarine     | <ul>2-0-4
 Ninja         | <ul>4-0-1
 
-Discord Webhook:
-<ul>discord_url: Add your web hook
+Discord Webhook: Add your web hook
 
 ## Compatibility
 #### Resolutions supported:  
