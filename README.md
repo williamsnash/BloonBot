@@ -24,7 +24,7 @@ Submarine     | <ul>2-0-4
 Ninja         | <ul>4-0-1
 
 Discord Webhook:
-discord_url: Add your web hook
+<ul>discord_url: Add your web hook
 
 ## Compatibility
 #### Resolutions supported:  
