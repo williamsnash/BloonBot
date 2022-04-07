@@ -32,7 +32,7 @@ Follow instruction from script
 * 1920x1080 
 ## ToDo
 - [ ] Add per run output
-- - [ ] Used/ Updating embed message
+- - [ ] Used/ Updating embed messages
 - [ ] Add Error Recovery Program
 - - [ ] Be able to correct bot
 - - [ ] Restart bot if needed
