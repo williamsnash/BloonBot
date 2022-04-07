@@ -1,8 +1,5 @@
 # BloonBot
-Original: https://github.com/RavingSmurfGB/Py_AutoBloons  
-This is my version of the bot made by RavingSmurfGB.  
-The original didn't seem to work so I made my own.  
-
+This is a fork from someone, I have lost the original repo. I have added discord intergration
 ## How It Works
 This program will select the map Dark Castle and beat it on easy difficulty while collecting any levels and event items.  
 It will use the Hero OBYN (Which will be selected auto if not), a submarine and a ninja monkey to beat the game.   
