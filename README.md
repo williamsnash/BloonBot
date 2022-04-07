@@ -24,11 +24,19 @@ Discord Webhook: Add your web hook
 ## Setup
 Run ```pip install -r requirements.txt```
 ## How to Run 
-Run ```python bloonBot.py```
-Follow instruction
+Run ```python bloonBot.py```<br>
+Follow instruction from script
   
 ## Compatibility
 #### Resolutions supported:  
 * 1920x1080 
-## To Do
+## ToDo
 - [ ] Add per run output
+- - [ ] Used/ Updating embed message
+- [ ] Add Error Recovery Program
+- - [ ] Be able to correct bot
+- - [ ] Restart bot if needed
+- [ ] Change to run on medium, not easy
+- - [ ] Wizard 042
+- [ ] Logging of won instas
+- - [ ] Discord Message / image
