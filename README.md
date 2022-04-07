@@ -13,15 +13,18 @@ Map: Dark Castle
 Keybinds that need to be changed:  
 Keybind         | Key
 --------------- | -----
-Upgrade path 1	| <ul>1 
-Upgrade path 2	|	<ul>2 
-Upgrade path 3	|	<ul>3  
+Upgrade path 1	| <ul>, 
+Upgrade path 2	|	<ul>. 
+Upgrade path 3	|	<ul>/  
 
 Upgrades:  
 Monkey        | Upgrade
 ------------- | -------------
 Submarine     | <ul>2-0-4
 Ninja         | <ul>4-0-1
+
+Discord Webhook:
+discord_url | <ul>Your webhook
 
 ## Compatibility
 #### Resolutions supported:  
