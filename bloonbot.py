@@ -17,6 +17,8 @@ from discord_webhook import DiscordWebhook
         # Add Wizard 042
     #Logging
         #Discord message?
+        #Per Run
+        #Embeddi
     #Insta Logging - Added / not tested
         #Discord message?
 colorama.init(autoreset=True)
@@ -30,6 +32,10 @@ menu_path = "pictures\\menu.png"
 event_path = "pictures\\event.png"
 obyn_hero_path = "pictures\\obyn.png"
 next_path = "pictures\\next.png"
+discord_url = ""
+upgrade_path_1 = ','
+upgrade_path_2 = '.'
+upgrade_path_3 = '/'
 
 monkeys = {
     "DART": "q",
@@ -200,7 +206,7 @@ def send_event_loot():
     im1 = pyautogui.screenshot(loot_img) # Takes the screenshot
 
     webhook = DiscordWebhook(
-                url='https://discord.com/api/webhooks/961624378628522014/yrmtVU96SaAYdJumn3SoFuJQ15ze9BjvsbQS3MTQyFXr7PfAk1oqO5bAzMtNFWfJtohi',
+                url=discord_url,
                 username='Event Looot'
                 )
     with open(loot_img, "rb") as f:
@@ -274,25 +280,25 @@ def Main_Game():
     Level_Up_Check(20 - overtime)
     place_tower("SUBMARINE", "SUBMARINE_LOCATION")  # 8.5
     Level_Up_Check(8.5 - overtime)
-    upgrade_tower(',', "SUBMARINE_LOCATION")  # 18
+    upgrade_tower(upgrade_path_1, "SUBMARINE_LOCATION")  # 18
     # sub_path_1 += 1
     print(f'{Fore.GREEN}Sub upgrade')
     # print(f" Sub Path 1: {sub_path_1}")
     # print(f" Sub Path 3: {sub_path_3}")
     Level_Up_Check(18 - overtime)
-    upgrade_tower('/', "SUBMARINE_LOCATION")  # 45
+    upgrade_tower(upgrade_path_3, "SUBMARINE_LOCATION")  # 45
     # sub_path_3 += 1
     print(f'{Fore.GREEN}Sub upgrade')
     # print(f" Sub Path 1: {sub_path_1}")
     # print(f" Sub Path 3: {sub_path_3}")
     Level_Up_Check(45 - overtime)
-    upgrade_tower('/', "SUBMARINE_LOCATION")  # 24
+    upgrade_tower(upgrade_path_3, "SUBMARINE_LOCATION")  # 24
     # sub_path_3 += 1
     print(f'{Fore.GREEN}Sub upgrade')
     # print(f" Sub Path 1: {sub_path_1}")
     # print(f" Sub Path 3: {sub_path_3}")
     Level_Up_Check(24 - overtime)
-    upgrade_tower(',', "SUBMARINE_LOCATION")  # 15
+    upgrade_tower(upgrade_path_1, "SUBMARINE_LOCATION")  # 15
     #sub_path_1 += 1
     print(f'{Fore.GREEN}Sub upgrade')
     # print(f" Sub Path 1: {sub_path_1}")
@@ -300,43 +306,43 @@ def Main_Game():
     Level_Up_Check(15 - overtime)
     place_tower("NINJA", "NINJA_LOCATION")  # 11.5
     Level_Up_Check(11.5 - overtime)
-    upgrade_tower(',', "NINJA_LOCATION")  # 11.5
+    upgrade_tower(upgrade_path_1, "NINJA_LOCATION")  # 11.5
     # ninja_path_1 += 1
     print(f'{Fore.GREEN}Ninja upgrade')
     # print(f" Ninja Path 1: {ninja_path_1}")
     # print(f" Ninja Path 3: {ninja_path_3}")
     Level_Up_Check(11.5 - overtime)
-    upgrade_tower(',', "NINJA_LOCATION")  # 4
+    upgrade_tower(upgrade_path_1, "NINJA_LOCATION")  # 4
     # ninja_path_1 += 1
     print(f'{Fore.GREEN}"Ninja upgrade')
     # print(f" Ninja Path 1: {ninja_path_1}")
     # print(f" Ninja Path 3: {ninja_path_3}")
     Level_Up_Check(4 - overtime)
-    upgrade_tower('/', "NINJA_LOCATION")  # 12
+    upgrade_tower(upgrade_path_3, "NINJA_LOCATION")  # 12
     # ninja_path_3 += 1
     print(f'{Fore.GREEN}Ninja upgrade')
     # print(f" Ninja Path 1: {ninja_path_1}")
     # print(f" Ninja Path 3: {ninja_path_3}")
     Level_Up_Check(12 - overtime)
-    upgrade_tower(',', "NINJA_LOCATION")  # 23
+    upgrade_tower(upgrade_path_1, "NINJA_LOCATION")  # 23
     # ninja_path_1 += 1
     print(f'{Fore.GREEN}Ninja upgrade')
     # print(f" Ninja Path 1: {ninja_path_1}")
     # print(f" Ninja Path 3: {ninja_path_3}")
     Level_Up_Check(23 - overtime)
-    upgrade_tower('/', "SUBMARINE_LOCATION")  # 39
+    upgrade_tower('upgrade_path_3, "SUBMARINE_LOCATION")  # 39
     #sub_path_3 += 1
     print(f'{Fore.GREEN}Sub upgrade')
     # print(f" Sub Path 1: {sub_path_1}")
     # print(f" Sub Path 3: {sub_path_3}")
     Level_Up_Check(39 - overtime)
-    upgrade_tower('/', "SUBMARINE_LOCATION")  # 40
+    upgrade_tower(upgrade_path_3, "SUBMARINE_LOCATION")  # 40
     # sub_path_3 += 1
     print(f'{Fore.GREEN}Sub upgrade')
     # print(f" Sub Path 1: {sub_path_1}")
     # print(f" Sub Path 3: {sub_path_3}")
     Level_Up_Check(20 - overtime)
-    upgrade_tower(',', "NINJA_LOCATION")
+    upgrade_tower(upgrade_path_1, "NINJA_LOCATION")
     # ninja_path_1 += 1
     print(f'{Fore.GREEN}Ninja upgrade')
     # print(f" Ninja Path 1: {ninja_path_1}")
@@ -357,8 +363,8 @@ def Exit_Game():
         print('Next button not found.')
         error_loop_count += 1
         found = pyautogui.locateOnScreen(next_path, grayscale=True, confidence=0.9)
-        if(error_loop_count > 3): # Error Detection
-            webhook = DiscordWebhook(url='your webhook url', content="Stuck in Exit_Game()")
+        if(error_loop_count == 3): # Error Detection
+            webhook = DiscordWebhook(url=discord_url, content="Stuck in Exit_Game()")
             response = webhook.execute()
     print(f'{Fore.CYAN}Game ended. Going back to homescreen...')
     pyautogui.click(x=960, y=910)
@@ -382,10 +388,8 @@ def Exit_Game():
 
 # webhook = DiscordWebhook(
 #             url='https://discord.com/api/webhooks/961624378628522014/yrmtVU96SaAYdJumn3SoFuJQ15ze9BjvsbQS3MTQyFXr7PfAk1oqO5bAzMtNFWfJtohi',
-#             username='Webhook with files'
+#             content='Webhook with files'
 #             )
-# with open("image.jpg", "rb") as f:
-#     webhook.add_file(file=f.read(), filename='image.jpg')
 # response = webhook.execute()
 
 game_win_Count = 0
