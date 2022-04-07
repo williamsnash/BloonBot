@@ -30,4 +30,5 @@ Follow instruction
 ## Compatibility
 #### Resolutions supported:  
 * 1920x1080 
-
+## To Do
+  [] Add per run output
