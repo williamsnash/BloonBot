@@ -21,9 +21,9 @@ Submarine     | <ul>2-0-4
 Ninja         | <ul>4-0-1
 
 Discord Webhook: Add your web hook
-##How to Setup
+## Setup
 Run ```pip install -r requirements.txt```
-##How to Run 
+## How to Run 
 Run ```python bloonBot.py```
 Follow instruction
   
