@@ -7,7 +7,7 @@ import numpy
 import random
 import colorama
 from colorama import Fore, Back, Style
-from discord_webhook import DiscordWebhook
+from discord_webhook import DiscordWebhook, DiscordEmbed
 
 
 
@@ -22,9 +22,7 @@ from discord_webhook import DiscordWebhook
     #Insta Logging - Added / not tested
         #Discord message?
 colorama.init(autoreset=True)
-
-overtime = 0
-
+error_status = "None"
 path = "pictures\\levelup.png"
 victory_path = "pictures\\victory.png"
 defeat_path = "pictures\\defeat.png"
@@ -32,7 +30,7 @@ menu_path = "pictures\\menu.png"
 event_path = "pictures\\event.png"
 obyn_hero_path = "pictures\\obyn.png"
 next_path = "pictures\\next.png"
-discord_url = ""
+discord_url = 'https://discord.com/api/webhooks/961635444024565860/OuPLMdsmv5Zf96Yk9yYooUIXpC7QCU9UeNZE1SPMebPF2kZ75_MHR_7NfzWgQGOQR3Eq'
 upgrade_path_1 = ','
 upgrade_path_2 = '.'
 upgrade_path_3 = '/'
@@ -110,18 +108,25 @@ def press_key(key):
 
 
 def menu_check():
+    menu_error = 0
     while True:  # Not doing anything until menu screen is open
+        if(menu_error == 3):
+            global error_status
+            error_status = "Main Menu Not Found"
+            print(error_status)
+            return
         menu_on = pyautogui.locateOnScreen(menu_path, grayscale=True, confidence=0.9)
         if menu_on != None:
             print(f'{Fore.RED}Menu screen found. Continuing...')
             break
         else:
             print(f'{Fore.GREEN}Menu screen not found. Trying again...')
+            menu_error +=1
             sleep(2)
 
 
 def hero_obyn_check():
-
+    
     menu_check()
 
     print(f'{Fore.CYAN}Checking for OBYN...')
@@ -134,6 +139,7 @@ def hero_obyn_check():
         click("CONFIRM_HERO")
         press_key("esc")
         print(f'{Fore.CYAN}OBYN selected.')
+    print(error_status)
 
 
 def place_tower(tower, location):
@@ -201,12 +207,12 @@ def Level_Up_Check(seconds): #Just a timer that checks if you ahve leved up
     overtime = time.time() - t_end
 
 def send_event_loot():
-    time_at_loot = time.localtime([secs]) # Gets local time
-    loot_img = time_at_loot + ".png" # Creates image file name of 'time.png'
+    named_tuple = time.localtime() # get struct_time
+    time_string = time.strftime("%Y-%m-%d-%H-%M", named_tuple)
+    loot_img = time_string + ".png" # Creates image file name of 'time.png'
     im1 = pyautogui.screenshot(loot_img) # Takes the screenshot
-
     webhook = DiscordWebhook(
-                url=discord_url,
+                url='https://discord.com/api/webhooks/961635444024565860/OuPLMdsmv5Zf96Yk9yYooUIXpC7QCU9UeNZE1SPMebPF2kZ75_MHR_7NfzWgQGOQR3Eq',
                 username='Event Looot'
                 )
     with open(loot_img, "rb") as f:
@@ -330,7 +336,7 @@ def Main_Game():
     # print(f" Ninja Path 1: {ninja_path_1}")
     # print(f" Ninja Path 3: {ninja_path_3}")
     Level_Up_Check(23 - overtime)
-    upgrade_tower('upgrade_path_3, "SUBMARINE_LOCATION")  # 39
+    upgrade_tower(upgrade_path_3, "SUBMARINE_LOCATION")  # 39
     #sub_path_3 += 1
     print(f'{Fore.GREEN}Sub upgrade')
     # print(f" Sub Path 1: {sub_path_1}")
@@ -364,8 +370,9 @@ def Exit_Game():
         error_loop_count += 1
         found = pyautogui.locateOnScreen(next_path, grayscale=True, confidence=0.9)
         if(error_loop_count == 3): # Error Detection
-            webhook = DiscordWebhook(url=discord_url, content="Stuck in Exit_Game()")
-            response = webhook.execute()
+            global error_status
+            error_status = "Next Button 404"
+            return
     print(f'{Fore.CYAN}Game ended. Going back to homescreen...')
     pyautogui.click(x=960, y=910)
     time.sleep(2)
@@ -383,22 +390,35 @@ def Exit_Game():
         else:
             click("EVENT_EXIT")
             sleep(3)
+    game_status = "Running"
+    game_win_Count+= 1
 
 # Main
-
-# webhook = DiscordWebhook(
-#             url='https://discord.com/api/webhooks/961624378628522014/yrmtVU96SaAYdJumn3SoFuJQ15ze9BjvsbQS3MTQyFXr7PfAk1oqO5bAzMtNFWfJtohi',
-#             content='Webhook with files'
-#             )
-# response = webhook.execute()
-
-game_win_Count = 0
-print(f'{Fore.CYAN}Starting in 5 seconds... move to BTD6 homescreen.')
-sleep(5)
-hero_obyn_check()
-print(f'{Fore.CYAN}Starting loop.')
-while True:
-    Start_Select_Map()
-    Main_Game()
-    Exit_Game()
-    game_win_Count += 1
+if __name__== "__main__":
+    time_string = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
+    game_win_Count = 1
+    game_status = "Starting"
+    print(f'{Fore.CYAN}Starting in 5 seconds... move to BTD6 homescreen.')
+    sleep(5)
+    #-----------------------------------------
+    runs = f"Run {game_win_Count} started at {time_string}"
+    content = f"{runs}\n----------------------\nErrors : {0}\nStatus : {game_status}"
+    webhook = DiscordWebhook(url=discord_url, username="Bot Status",content=content)
+    response = webhook.execute()
+    #-----------------------------------------
+    hero_obyn_check()
+    print(f'{Fore.CYAN}Starting loop.')
+    while True:
+        time_string = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
+        runs = f"Run {game_win_Count} started at {time_string}"
+        print(error_status)
+        if(error_status != "None"):
+            webhook.content = f"{runs}\n----------------------\nErrors : {error_status}\nStatus : Ended"
+            response = webhook.edit(response)
+            exit()
+        webhook.content = f"{runs}\n----------------------\nErrors : {error_status}\nStatus : {game_status}"
+        response = webhook.edit(response)
+        Start_Select_Map()
+        Main_Game()
+        Exit_Game()
+        #embedSend()
