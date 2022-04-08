@@ -41,7 +41,7 @@ Follow instruction from script
 - [ ] Logging of won instas
 - - [ ] Discord Message / image
 - - [ ] Delete images taken
-- - - ```import os
+```import os
 if os.path.exists("demofile.txt"):
   os.remove("demofile.txt")
 else:
