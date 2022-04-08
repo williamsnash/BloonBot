@@ -40,3 +40,9 @@ Follow instruction from script
 - - [ ] Wizard 042
 - [ ] Logging of won instas
 - - [ ] Discord Message / image
+- - [ ] Delete images taken
+- - - ```import os
+if os.path.exists("demofile.txt"):
+  os.remove("demofile.txt")
+else:
+  print("The file does not exist")```
