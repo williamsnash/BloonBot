@@ -194,6 +194,10 @@ def send_event_loot():
     with open(loot_img, "rb") as f:
         webhook.add_file(file=f.read(), filename=loot_img)
     response = webhook.execute()
+    if os.path.exists(loot_img):
+        os.remove(loot_img)
+    else:
+        print("The file does not exist")
 def event_check():
 
     found = pyautogui.locateOnScreen(event_path, grayscale=True, confidence=0.9)
@@ -220,9 +224,9 @@ def event_check():
         time.sleep(1)
         click("F_RIGHT_INSTA")
         time.sleep(1)
-        click("F_RIGHT_INSTA")
-        time.sleep(1)
         send_event_loot() #Send discord message
+        time.sleep(1)
+        click("F_RIGHT_INSTA")
         time.sleep(1)
         click("EVENT_CONTINUE")
 
