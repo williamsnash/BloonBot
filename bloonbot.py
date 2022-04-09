@@ -212,7 +212,7 @@ def send_event_loot():
     loot_img = time_string + ".png" # Creates image file name of 'time.png'
     im1 = pyautogui.screenshot(loot_img) # Takes the screenshot
     webhook = DiscordWebhook(
-                url='https://discord.com/api/webhooks/961635444024565860/OuPLMdsmv5Zf96Yk9yYooUIXpC7QCU9UeNZE1SPMebPF2kZ75_MHR_7NfzWgQGOQR3Eq',
+                url=discord_url,
                 username='Event Looot'
                 )
     with open(loot_img, "rb") as f:
