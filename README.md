@@ -31,12 +31,10 @@ Follow instruction from script
 #### Resolutions supported:  
 * 1920x1080 
 ## ToDo
-- [ ] Add per run output
-- - [ ] Used/ Updating embed messages
+- [x] Add per run output
+- - [x] Used/ Updating embed messages
 - [ ] Add Error Recovery Program
 - - [ ] Be able to correct bot
 - - [ ] Restart bot if needed
-- [ ] Change to run on medium, not easy
-- - [ ] Wizard 042
-- [ ] Logging of won instas
-- - [ ] Discord Message / image
+- [x] Logging of won instas
+- - [x] Discord Message / image
