@@ -23,9 +23,19 @@ Ninja         | <ul>4-0-1
 Discord Webhook: Add your web hook
 ## Setup
 Run ```pip install -r requirements.txt```
-## How to Run 
+## How to Run without Discord Posting
 Run ```python bloonBot.py```<br>
 Follow instruction from script
+
+## How to Run with Discord Posting
+Prereq:
+- Server On Discord
+1. Create webhook
+    1. In the server settings Go to Integrations
+    2. Create Webhook
+    3. Copy Webhook URL
+2. In `bloonbot_logging.py` add the URL to `discord_url`
+3. Run `python bloonbot_logging.py`
   
 ## Compatibility
 #### Resolutions supported:  
