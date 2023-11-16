@@ -7,20 +7,7 @@ import numpy
 import random
 import colorama
 from colorama import Fore, Back, Style
-from discord_webhook import DiscordWebhook
 
-
-
-
-#TODO
-    #Go to Medium
-        # Add Wizard 042
-    #Logging
-        #Discord message?
-        #Per Run
-        #Embeddi
-    #Insta Logging - Added / not tested
-        #Discord message?
 colorama.init(autoreset=True)
 
 overtime = 0
@@ -32,7 +19,6 @@ menu_path = "pictures\\menu.png"
 event_path = "pictures\\event.png"
 obyn_hero_path = "pictures\\obyn.png"
 next_path = "pictures\\next.png"
-discord_url = ""
 upgrade_path_1 = ','
 upgrade_path_2 = '.'
 upgrade_path_3 = '/'
@@ -200,18 +186,6 @@ def Level_Up_Check(seconds): #Just a timer that checks if you ahve leved up
 
     overtime = time.time() - t_end
 
-def send_event_loot():
-    time_at_loot = time.localtime([secs]) # Gets local time
-    loot_img = time_at_loot + ".png" # Creates image file name of 'time.png'
-    im1 = pyautogui.screenshot(loot_img) # Takes the screenshot
-
-    webhook = DiscordWebhook(
-                url=discord_url,
-                username='Event Looot'
-                )
-    with open(loot_img, "rb") as f:
-        webhook.add_file(file=f.read(), filename=loot_img)
-    response = webhook.execute()
 def event_check():
 
     found = pyautogui.locateOnScreen(event_path, grayscale=True, confidence=0.9)
@@ -239,8 +213,6 @@ def event_check():
         click("F_RIGHT_INSTA")
         time.sleep(1)
         click("F_RIGHT_INSTA")
-        time.sleep(1)
-        send_event_loot() #Send discord message
         time.sleep(1)
         click("EVENT_CONTINUE")
 
@@ -363,9 +335,6 @@ def Exit_Game():
         print('Next button not found.')
         error_loop_count += 1
         found = pyautogui.locateOnScreen(next_path, grayscale=True, confidence=0.9)
-        if(error_loop_count == 3): # Error Detection
-            webhook = DiscordWebhook(url=discord_url, content="Stuck in Exit_Game()")
-            response = webhook.execute()
     print(f'{Fore.CYAN}Game ended. Going back to homescreen...')
     pyautogui.click(x=960, y=910)
     time.sleep(2)

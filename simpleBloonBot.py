@@ -186,17 +186,25 @@ def send_event_loot():
     time_string = time.strftime("%Y-%m-%d-%H-%M", named_tuple)
     loot_img = time_string + ".png" # Creates image file name of 'time.png'
     im1 = pyautogui.screenshot(loot_img) # Takes the screenshot
-    webhook = DiscordWebhook(
-                url=discord_url,
-                username='Event Looot'
-                )
-    with open(loot_img, "rb") as f:
-        webhook.add_file(file=f.read(), filename=loot_img)
-    response = webhook.execute()
-    if os.path.exists(loot_img):
-        os.remove(loot_img)
-    else:
-        print("The file does not exist")
+    try:
+        webhook = DiscordWebhook(
+                    url=discord_url,
+                    username='Event Looot'
+                    )
+        with open(loot_img, "rb") as f:
+            webhook.add_file(file=f.read(), filename=loot_img)
+        response = webhook.execute()
+        if os.path.exists(loot_img):
+            os.remove(loot_img)
+        else:
+            print("The file does not exist")
+    except:
+        print("An exception occurred")
+        print("Waiting 20 seconds to continue")
+        sleep(20)
+        global error_status
+        error_status+=1
+
 def event_check():
 
     found = pyautogui.locateOnScreen(event_path, grayscale=True, confidence=0.9)
@@ -260,10 +268,8 @@ def Main_Game():
     print(f'{Fore.CYAN}Game started.')
 
     place_tower("HERO", "HERO_LOCATION")
-
     press_key("space")  # Start the game
     press_key("space")  # Fast forward the game
-
     Level_Up_Check(20 - overtime)
     place_tower("SUBMARINE", "SUBMARINE_LOCATION")  # 8.5
     Level_Up_Check(8.5 - overtime)
@@ -350,10 +356,10 @@ def Exit_Game():
         print('Next button not found.')
         error_loop_count += 1
         found = pyautogui.locateOnScreen(next_path, grayscale=True, confidence=0.9)
-        # if(error_loop_count == 3): # Error Detection
-        #     global game_status, error_status
-        #     error_status = 1
-        #     game_status = "Next Button Not Found"
+        if(error_loop_count == 3): # Error Detection
+            global game_status, error_status
+            error_status = 1
+            game_status = "Next Button Not Found"
     print(f'{Fore.CYAN}Game ended. Going back to homescreen...')
     pyautogui.click(x=960, y=910)
     time.sleep(2)
@@ -383,16 +389,28 @@ sleep(5)
 #-----------------------------------------
 runs = f"Run {game_win_Count} started at {time_string}"
 content = f"{runs}\n----------------------\nErrors : {0}\nStatus : {game_status}"
-webhook = DiscordWebhook(url=discord_url, username="Bot Status",content=content)
-response = webhook.execute()
+try:
+    webhook = DiscordWebhook(url=discord_url, username="Bot Status",content=content)
+    response = webhook.execute()
+except:
+    print("An exception occurred")
+    print("Waiting 20 seconds to continue")
+    sleep(20)
+    error_status+=1
 #-----------------------------------------
 hero_obyn_check()
 print(f'{Fore.CYAN}Starting loop.')
 while True:
     time_string = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
     runs = f"Run {game_win_Count} started at {time_string}"
-    webhook.content = f"{runs}\n----------------------\nErrors : {error_status}\nStatus : {game_status}"
-    response = webhook.edit(response)
+    try:
+        webhook.content = f"{runs}\n----------------------\nErrors : {error_status}\nStatus : {game_status}"
+        response = webhook.edit(response)
+    except:
+        print("An exception occurred")
+        print("Waiting 20 seconds to continue")
+        sleep(20)
+        error_status+=1
     Start_Select_Map()
     Main_Game()
     Exit_Game()
