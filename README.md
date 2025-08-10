@@ -39,7 +39,7 @@ Prereq:
   
 ## Compatibility
 #### Resolutions supported:  
-* 1920x1080 
+* 3440x1440 (But should work for any 1440p)
 ## ToDo
 - [x] Add per run output
 - - [x] Used/ Updating embed messages
@@ -48,3 +48,4 @@ Prereq:
 - - [ ] Restart bot if needed
 - [x] Logging of won instas
 - - [x] Discord Message / image
+
