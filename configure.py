@@ -3,14 +3,14 @@ import time
 
 DEFAULT_SAVE = 'pictures'
 IMAGE_SET = {
-  'menu.': 'Picture of the register on the left of the screen',
+  'menu': 'Picture of the register on the left of the screen',
   'obyn': 'A picture of the hero obyn selected from the main menu',
   'game_paused': 'Start round arrow',
   'game_slow': 'The game running at normal speed',
   'game_fast': 'The game running at fast speeds',
   'victory': 'The victory text',
-  'defeat': 'The defeat text',
   'next': 'The button to move on after victory/defeat',
+  'defeat': 'The defeat text',
   'event': 'The collection event text'
 }
 
@@ -19,7 +19,7 @@ def remap_images(image_name, prompt):
   # Get positions
   print(f"Taking for {image_name}:")
   print(prompt)
-  print('-'*50)
+  print('-' * 50)
   top_left = get_position("Hover over the TOP-LEFT corner of the element")
   bottom_right = get_position(
       "Hover over the BOTTOM-RIGHT corner of the element")
@@ -91,6 +91,6 @@ if __name__ == '__main__':
     remap_pixels()
   elif (choice.lower() == 'i'):
     for image, prompt in IMAGE_SET.items():
-      remap_images()
+      remap_images(image, prompt)
   else:
     print("Invalid Option")

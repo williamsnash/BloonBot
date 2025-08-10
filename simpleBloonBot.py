@@ -37,28 +37,8 @@ upgrade_path_2 = '.'
 upgrade_path_3 = '/'
 
 monkeys = {
-    "DART": "q",
-    "BOOMERANG": "w",
-    "BOMB": "e",
-    "TACK": "r",
-    "ICE": "t",
-    "GLUE": "y",
-    "SNIPER": "z",
     "SUBMARINE": "x",
-    "BUCCANEER": "c",
-    "ACE": "v",
-    "HELI": "b",
-    "MORTAR": "n",
-    "DARTLING": "m",
-    "WIZARD": "a",
-    "SUPER": "s",
     "NINJA": "d",
-    "ALCHEMIST": "f",
-    "DRUID": "g",
-    "BANANA": "h",
-    "ENGINEER": "l",
-    "SPIKE": "j",
-    "VILLAGE": "k",
     "HERO": "u"
 }
 
@@ -89,21 +69,9 @@ button_positions = {
 }
 
 
-REF_WIDTH = 3440
-REF_HEIGHT = 1440
-
-NEW_WIDTH, NEW_HEIGHT = pyautogui.size()  # This should be (3440, 1440) for you
-
-
-def scale_position(pos):
-  x, y = pos
-  scaled_x = int(x * (NEW_WIDTH / REF_WIDTH))
-  scaled_y = int(y * (NEW_HEIGHT / REF_HEIGHT))
-  return scaled_x, scaled_y
-
 
 def click(location):
-  pyautogui.click(scale_position(button_positions[location]))
+  pyautogui.click(button_positions[location])
   sleep(0.5)
 
 
