@@ -1,53 +1,25 @@
-# # import pyautogui
-# # import time
-
-
-# # def get_cord():
-# #   while True:
-# #     print(pyautogui.position())
-# #     time.sleep(1)
-
-
-# # def get_screenshoot():
-# #   top_left_x = 1069
-# #   top_left_y = 1203
-# #   bottom_right_x = 1239
-# #   bottom_right_y = 1342
-
-# #   width = bottom_right_x - top_left_x
-# #   height = bottom_right_y - top_left_y
-
-# #   pyautogui.screenshot("menu.png", region=(
-# #     top_left_x, top_left_y, width, height))
-# #   print("menu.png saved!")
-
-
-# # def check_screenshot():
-# #   time.sleep(5)
-# #   match = pyautogui.locateOnScreen("menu.png", confidence=0.9)
-# #   print(match)
-
-
-# # # get_cord()
-# # get_screenshoot()
-# # check_screenshot()
-
-# # """
-# # Menu:
-# #  Top Left: x=20, y=562
-# #  Bottom Right: x=165, y=703
-# # """
-
 import pyautogui
 import time
 
+DEFAULT_SAVE = 'pictures'
+IMAGE_SET = {
+  'menu.': 'Picture of the register on the left of the screen',
+  'obyn': 'A picture of the hero obyn selected from the main menu',
+  'game_paused': 'Start round arrow',
+  'game_slow': 'The game running at normal speed',
+  'game_fast': 'The game running at fast speeds',
+  'victory': 'The victory text',
+  'defeat': 'The defeat text',
+  'next': 'The button to move on after victory/defeat',
+  'event': 'The collection event text'
+}
 
-def remap_images():
-  # Countdown so you can get ready
-  print("Starting in 3 seconds... move your mouse to where you need.")
-  time.sleep(3)
 
+def remap_images(image_name, prompt):
   # Get positions
+  print(f"Taking for {image_name}:")
+  print(prompt)
+  print('-'*50)
   top_left = get_position("Hover over the TOP-LEFT corner of the element")
   bottom_right = get_position(
       "Hover over the BOTTOM-RIGHT corner of the element")
@@ -57,8 +29,7 @@ def remap_images():
   height = bottom_right.y - top_left.y
 
   # Get filename
-  filename = input(
-    "Enter a name for the screenshot (e.g., menu.png): ").strip()
+  filename = f"./pictures/{image_name}.png"
 
   # Take screenshot
   pyautogui.screenshot(filename, region=(
@@ -119,6 +90,7 @@ if __name__ == '__main__':
   if (choice.lower() == 'p'):
     remap_pixels()
   elif (choice.lower() == 'i'):
-    remap_images()
+    for image, prompt in IMAGE_SET.items():
+      remap_images()
   else:
     print("Invalid Option")
