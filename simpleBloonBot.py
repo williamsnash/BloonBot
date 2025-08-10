@@ -381,7 +381,7 @@ def Exit_Game():
   pyautogui.click(button_positions['VICTORY_HOME'])
   time.sleep(4)
   print(f'{Fore.CYAN}Back in homescreen. Checking for event notification...')
-  # event_check()
+  event_check()
   sleep(2)
   tries = 0
   for x in range(0, 4):  # checking for menu screen
