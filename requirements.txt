@@ -3,3 +3,6 @@ keyboard
 numpy
 colorama
 Discord-webhook
+pydirectinput
+pillow
+opencv-python
