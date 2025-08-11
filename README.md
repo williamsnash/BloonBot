@@ -25,7 +25,7 @@ Discord Webhook: Add your web hook
 Run ```pip install -r requirements.txt```
 
 ### Config File
-Run the setup.py to generated images and then to generate the button positions
+Run the setup.py to generated images and then to generate the button positions (For examples of the images see `./imgs`)
 ```
 discord_url = "" #NOT CURRENTLY FUNCTIONAL
 upgrade_path_1 = ','
