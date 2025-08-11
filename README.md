@@ -8,7 +8,7 @@ It will use the Hero OBYN (Which will be selected auto if not), a submarine, and
 ### Map: 
 - Dark Castle  
 
-### Monkeys * Upgrades:  
+### Monkeys & Upgrades:  
 Monkey        | Upgrade
 ------------- | -------------
 Submarine     | <ul>2-0-4
@@ -71,6 +71,7 @@ Prereq:
     3. Copy Webhook URL
 2. In `bloonbot_logging.py` add the URL to `discord_url`
 3. Run `python bloonbot_logging.py`
+
 
 
 
