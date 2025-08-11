@@ -23,6 +23,47 @@ Ninja         | <ul>4-0-1
 Discord Webhook: Add your web hook
 ## Setup
 Run ```pip install -r requirements.txt```
+
+### Config File
+Run the setup.py to generated images and then to generate the button positions
+```
+discord_url = "" #NOT CURRENTLY FUNCTIONAL
+upgrade_path_1 = ','
+upgrade_path_2 = '.'
+upgrade_path_3 = '/'
+
+monkeys = {
+    "SUBMARINE": "x",
+    "NINJA": "d",
+    "HERO": "u"
+}
+
+button_positions = {
+    "HOME_MENU_START": [1732, 1263],
+    "EXPERT_SELECTION": [2219, 1301],
+    "RIGHT_ARROW_SELECTION": [2638, 572],
+    "DARK_CASTLE": [1144, 763],
+    "EASY_MODE": [1277, 541],
+    "STANDARD_GAME_MODE": [1283, 793],
+    "OVERWRITE_SAVE": [1955, 967],
+    'HERO_LOCATION': [1189, 649],  # Top Middle Corner
+    'SUBMARINE_LOCATION': [1907, 549],  # Just above drawbridge
+    'NINJA_LOCATION': [2382, 741],  # On Castle, centered
+    "VICTORY_CONTINUE": [1702, 1210],
+    "VICTORY_HOME": [1393, 1112],
+    'EVENT_COLLECTION': [1735, 903],
+    'FAR_LEFT_INSTA': [1520, 707],
+    'FAR_RIGHT_INSTA': [1921, 702],
+    'LEFT_INSTA': [1517, 711],
+    'RIGHT_INSTA': [1924, 715],
+    'MID_INSTA': [1716, 712],
+    'EVENT_CONTINUE': [1718, 1335],
+    'EVENT_EXIT': [97, 74],
+    'HERO_SELECT': [1153, 1278],
+    'SELECT_OBYN': [140, 558],
+    'CONFIRM_HERO': [1925, 816]
+}
+```
 ## How to Run without Discord Posting
 Run ```python bloonBot.py```<br>
 Follow instruction from script

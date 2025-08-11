@@ -1,0 +1,6 @@
+.idea
+.venv
+errors/
+config.py
+.guide*
+pictures*
