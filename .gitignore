@@ -4,3 +4,4 @@ errors/
 config.py
 .guide*
 pictures*
+.DS_Store
