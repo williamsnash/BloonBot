@@ -25,7 +25,7 @@ Discord Webhook: Add your web hook
 Run ```pip install -r requirements.txt```
 
 ### Config File
-Run the setup.py to generated images and then to generate the button positions (For examples of the images see `./imgs`)
+Run the setup.py to generated images and then to generate the button positions (For examples of the images see the [images folder](https://github.com/williamsnash/BloonBot/tree/main/imgs))
 ```
 discord_url = "" #NOT CURRENTLY FUNCTIONAL
 upgrade_path_1 = ','
@@ -89,4 +89,5 @@ Prereq:
 - - [ ] Restart bot if needed
 - [x] Logging of won instas
 - - [x] Discord Message / image
+
 
