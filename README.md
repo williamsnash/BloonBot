@@ -1,31 +1,25 @@
 # BloonBot
-This is a fork from someone, I have lost the original repo. I have added discord intergration
+This is a fork from someone; I have lost the original repo.
 ## How It Works
-This program will select the map Dark Castle and beat it on easy difficulty while collecting any levels and event items.  
-It will use the Hero OBYN (Which will be selected auto if not), a submarine and a ninja monkey to beat the game.   
+This program will select the map Dark Castle and beat it on easy difficulty while collecting all levels and event items.  
+It will use the Hero OBYN (Which will be selected auto if not), a submarine, and a ninja monkey to beat the game.   
 
 ## In-Game Requirements
-Map: Dark Castle  
+### Map: 
+- Dark Castle  
 
-Keybinds that need to be changed:  
-Keybind         | Key
---------------- | -----
-Upgrade path 1	| <ul>, 
-Upgrade path 2	|	<ul>. 
-Upgrade path 3	|	<ul>/  
-
-Upgrades:  
+### Monkeys & Upgrades:  
 Monkey        | Upgrade
 ------------- | -------------
 Submarine     | <ul>2-0-4
 Ninja         | <ul>4-0-1
 
-Discord Webhook: Add your web hook
+~~Discord Webhook: Add your webhook~~
 ## Setup
 Run ```pip install -r requirements.txt```
 
 ### Config File
-Run the setup.py to generated images and then to generate the button positions (For examples of the images see the [images folder](https://github.com/williamsnash/BloonBot/tree/main/imgs))
+Run the setup.py to generate images and then to generate the button positions (For examples of the images see the [images folder](https://github.com/williamsnash/BloonBot/tree/main/imgs))
 ```
 discord_url = "" #NOT CURRENTLY FUNCTIONAL
 upgrade_path_1 = ','
@@ -66,28 +60,18 @@ button_positions = {
 ```
 ## How to Run without Discord Posting
 Run ```python bloonBot.py```<br>
-Follow instruction from script
+Follow the instructions from the script
 
-## How to Run with Discord Posting
+## ~~How to Run with Discord Posting~~
 Prereq:
 - Server On Discord
-1. Create webhook
-    1. In the server settings Go to Integrations
+1. Create a webhook
+    1. In the server settings, go to Integrations
     2. Create Webhook
     3. Copy Webhook URL
 2. In `bloonbot_logging.py` add the URL to `discord_url`
 3. Run `python bloonbot_logging.py`
-  
-## Compatibility
-#### Resolutions supported:  
-* 3440x1440 (But should work for any 1440p)
-## ToDo
-- [x] Add per run output
-- - [x] Used/ Updating embed messages
-- [ ] Add Error Recovery Program
-- - [ ] Be able to correct bot
-- - [ ] Restart bot if needed
-- [x] Logging of won instas
-- - [x] Discord Message / image
+
+
 
 
