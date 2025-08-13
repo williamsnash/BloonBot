@@ -26,6 +26,11 @@ obyn_hero_path = "pictures/obyn.png"
 next_path = "pictures/next.png"
 
 
+def save_screenshot(file_name):
+    screenshot = pyautogui.screenshot()
+    screenshot.save(file_name)
+
+
 def locate_on_screen(image_path, grayscale=True, confidence=0.9, capture_error=True):
     try:
         return pyautogui.locateOnScreen(
@@ -33,10 +38,9 @@ def locate_on_screen(image_path, grayscale=True, confidence=0.9, capture_error=T
     except:
         if capture_error:
             date = datetime.now().strftime("%H_%M_%S_%m_%d_%Y")
-            screenshot = pyautogui.screenshot()
             file_name = f'./errors/{date}-{image_path.split('/')[-1]}'
             print(f"Saving error image - {file_name}")
-            screenshot.save(file_name)
+            save_screenshot(file_name)
         return None
 
 
@@ -161,7 +165,12 @@ def send_event_loot():
 
 def event_check():
 
-    found = locate_on_screen(event_path, grayscale=True, confidence=0.9)
+    found = locate_on_screen(
+        event_path,
+        grayscale=True,
+        confidence=0.9,
+        capture_error=False
+    )
 
     if found != None:
         print(f"{Fore.RED}Event notification detected. Getting rid of it...")
@@ -176,6 +185,8 @@ def event_check():
         click("RIGHT_INSTA")  # collect r insta
         time.sleep(1)
         # send_event_loot()  # Send discord message
+        save_screenshot(
+            f"./collections/{datetime.now().strftime('%H_%M_%S_%m_%d_%Y')}.png")
         time.sleep(1)
         click("FAR_LEFT_INSTA")
         time.sleep(1)
@@ -190,11 +201,14 @@ def event_check():
         click("FAR_RIGHT_INSTA")
         time.sleep(1)
         # send_event_loot()  # Send discord message
+        save_screenshot(
+            f"./collections/{datetime.now().strftime('%H_%M_%S_%m_%d_%Y')}.png")
         time.sleep(1)
+        # save_screenshot(f"./collections/{datetime.now().strftime('%H_%M_%S_%m_%d_%Y')}.png")
         click("EVENT_CONTINUE")
         # awe try to click 3 quick times to get out of the event mode, but also if event mode not triggered, to open and close profile quick
         click("EVENT_EXIT")
-        print(f'{Fore.GREEN}Event notification kyssed.')
+        print(f'{Fore.GREEN}Event notification closed.')
         time.sleep(1)
 
 
