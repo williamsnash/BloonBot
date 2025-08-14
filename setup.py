@@ -11,7 +11,8 @@ IMAGE_SET = {
   'victory': 'The victory text',
   'next': 'The button to move on after victory/defeat',
   'defeat': 'The defeat text',
-  'event': 'The collection event text'
+  'event': 'The collection event text',
+  'escape_menu': 'A image only in the escape menu'
 }
 
 
@@ -76,7 +77,9 @@ def remap_pixels():
       'EVENT_EXIT': [0, 0],
       'HERO_SELECT': [0, 0],
       'SELECT_OBYN': [0, 0],
-      'CONFIRM_HERO': [0, 0]
+      'CONFIRM_HERO': [0, 0],
+      'ESCAPE_HOME': [0, 0],
+      'DEFEAT_HOME': [0, 0]
   }
 
   for key in button_positions.keys():

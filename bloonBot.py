@@ -24,6 +24,11 @@ menu_path = "pictures/menu.png"
 event_path = "pictures/event.png"
 obyn_hero_path = "pictures/obyn.png"
 next_path = "pictures/next.png"
+escape_menu = "pictures/escape_menu.png"
+
+
+class RecoveryRestart(Exception):
+    pass
 
 
 def save_screenshot(file_name):
@@ -31,7 +36,7 @@ def save_screenshot(file_name):
     screenshot.save(file_name)
 
 
-def locate_on_screen(image_path, grayscale=True, confidence=0.9, capture_error=True):
+def locate_on_screen(image_path, grayscale=True, confidence=0.9, capture_error=False, recover_on_fail=False):
     try:
         return pyautogui.locateOnScreen(
           image_path, grayscale=grayscale, confidence=confidence)
@@ -41,7 +46,9 @@ def locate_on_screen(image_path, grayscale=True, confidence=0.9, capture_error=T
             file_name = f'./errors/{date}-{image_path.split('/')[-1]}'
             print(f"Saving error image - {file_name}")
             save_screenshot(file_name)
-        return None
+
+        if recover_on_fail:
+            try_recover(reason=f"Failed to locate {image_path}")
 
 
 def click(location):
@@ -62,13 +69,10 @@ def press_key(key):
 def menu_check():
     while True:  # Not doing anything until menu screen is open
         menu_on = locate_on_screen(
-          menu_path, grayscale=True, confidence=0.9)
+          menu_path, grayscale=True, confidence=0.9, recover_on_fail=True)
         if menu_on != None:
             print(f'{Fore.RED}Menu screen found. Continuing...')
             break
-        else:
-            print(f'{Fore.GREEN}Menu screen not found. Trying again...')
-            sleep(2)
 
 
 def hero_obyn_check():
@@ -77,7 +81,7 @@ def hero_obyn_check():
 
     print(f'{Fore.CYAN}Checking for OBYN...')
     found = locate_on_screen(
-      obyn_hero_path, grayscale=True, confidence=0.9)
+      obyn_hero_path, grayscale=True, confidence=0.9, recover_on_fail=True)
 
     if found == None:
         print(f'{Fore.CYAN}Not found. Selecting OBYN...')
@@ -122,7 +126,7 @@ def Level_Up_Check(seconds):  # Just a timer that checks if you ahve leved up
             path,
             grayscale=True,
             confidence=0.9,
-            capture_error=False)
+        )
 
         if found != None:
             print(f'{Fore.RED}Level Up notification detected. Getting rid of it...')
@@ -134,6 +138,15 @@ def Level_Up_Check(seconds):  # Just a timer that checks if you ahve leved up
             print(f'{Fore.GREEN}Notification kyssed.')
         else:
             sleep(0.2)
+
+        defeat = locate_on_screen(
+            defeat_path,
+            grayscale=True,
+            confidence=0.9
+        )
+        if defeat != None:
+            print(f'{Fore.RED}Defeat - Reason: Unknow | Attempting Recovery')
+            try_recover('Defeated')
 
     overtime = time.time() - t_end
 
@@ -169,7 +182,6 @@ def event_check():
         event_path,
         grayscale=True,
         confidence=0.9,
-        capture_error=False
     )
 
     if found != None:
@@ -293,17 +305,21 @@ def Exit_Game():
 
     Level_Up_Check(1)
 
-    found = locate_on_screen(next_path, grayscale=True, confidence=0.9)
+    found = locate_on_screen(
+        next_path,
+        grayscale=True,
+        confidence=0.9,
+    )
     error_loop_count = 0
     while found == None:
         sleep(2)
         print('Next button not found.')
         error_loop_count += 1
-        found = locate_on_screen(next_path, grayscale=True, confidence=0.9)
+        found = locate_on_screen(
+            next_path, grayscale=True,
+            sconfidence=0.9)
         if (error_loop_count == 3):  # Error Detection
-            global game_status, error_status
-            error_status = 1
-            game_status = "Next Button Not Found"
+            try_recover('Next Button not found')
 
     print(f'{Fore.CYAN}Game ended. Going back to homescreen...')
     pyautogui.click(config.button_positions['VICTORY_CONTINUE'])
@@ -316,13 +332,78 @@ def Exit_Game():
     tries = 0
     for x in range(0, 4):  # checking for menu screen
         menu_on = locate_on_screen(
-          menu_path, grayscale=True, confidence=0.9)
+          menu_path, grayscale=True, confidence=0.9, recover_on_fail=True)
         if menu_on != None:
             print(f'{Fore.CYAN}Menu screen found. Continuing...')
             break
         else:
             click("EVENT_EXIT")
             sleep(3)
+
+
+def try_recover(reason):
+    print(f"{Fore.RED}[RECOVERY] Attempting recovery...\n {reason}")
+
+    # Step 1: Hit escape 3 times
+    for _ in range(3):
+        press_key("esc")
+        sleep(0.5)
+
+    defeat = locate_on_screen(
+        defeat_path,
+        grayscale=True,
+        confidence=0.9
+    )
+    if defeat != None:
+        print(f'{Fore.RED}Defeat - Reason: Unknow | Attempting Recovery')
+        click('DEFEAT_HOME')
+        sleep(3)
+        menu_check()
+        raise RecoveryRestart()
+    else:
+        # Step 2: Check for escape menu
+        esc_menu = locate_on_screen(
+            "pictures/escape_menu.png",
+            grayscale=True,
+            confidence=0.9
+        )
+
+        if esc_menu is not None:
+            print(
+                f"{Fore.YELLOW}[RECOVERY] Escape menu found. Exiting to home...")
+            # Button mapping must exist in config
+            click('ESCAPE_HOME')
+            sleep(3)
+            menu_check()
+            raise RecoveryRestart()
+        else:
+            print(
+                f"{Fore.YELLOW}[RECOVERY] Escape menu not found. Trying again...")
+            press_key("esc")
+            sleep(1)
+            esc_menu = locate_on_screen(
+                "pictures/escape_menu.png",
+                grayscale=True,
+                confidence=0.9
+            )
+            if esc_menu is not None:
+                print(
+                    f"{Fore.YELLOW}[RECOVERY] Escape menu found after retry. Exiting to home...")
+                click("ESC_MENU_EXIT_HOME")
+                sleep(3)
+                menu_check()
+                raise RecoveryRestart()
+            else:
+                save_screenshot(
+                    f'./errors/{datetime.now().strftime('%H_%M_%S_%m_%d_%Y')}_recovery_failed.png')
+                raise ('Recovery Failed to Return to menu - Exiting')
+
+    # Step 3: Check for event notification
+    event_check()
+
+    # Step 4: Restart loop (this just means return to main while loop)
+    print(f"{Fore.GREEN}[RECOVERY] Recovery complete. Restarting run...\n")
+    sleep(1)
 
 
 if __name__ == '__main__':
@@ -339,9 +420,15 @@ if __name__ == '__main__':
 
     print(f'{Fore.CYAN}Starting loop.')
     while True:
-        time_string = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
-        runs = f"Run {game_win_Count} started at {time_string}"
-        Start_Select_Map()
-        Main_Game()
-        Exit_Game()
-        game_win_Count += 1
+        try:
+            time_string = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
+            runs = f"Run {game_win_Count} started at {time_string}"
+            Start_Select_Map()
+            Main_Game()
+            Exit_Game()
+            game_win_Count += 1
+        except RecoveryRestart:
+            sleep(2)
+            event_check()
+            sleep(1)
+            continue
